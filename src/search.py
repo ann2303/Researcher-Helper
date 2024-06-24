@@ -12,15 +12,16 @@ class SemanticSearch:
         self.session = session
         
     async def get_papers(self, query: str) -> AsyncGenerator[dict, None]:
-        json = {
+        data = {
             'query': query,
             'limit': self.limit
         }
 
-        async with self.session.post(f'https://api.semanticscholar.org/graph/v1/paper/search', params=self.params, headers=self.headers, json=json) as response:
+        async with self.session.get(f'https://api.semanticscholar.org/graph/v1/paper/search', params=self.params | data, headers=self.headers) as response:
             response.raise_for_status()
 
-            for paper in await response.json():
+            result = await response.json()
+            for paper in result['data']:
                 yield paper
                 
                 
@@ -50,6 +51,7 @@ class SemanticSearch:
             save_directory.mkdir(parents=True)
             
         async for paper in self.get_papers(query):
+            print(paper)
             paper_id = paper['paperId']
 
             # check if the paper is open access
