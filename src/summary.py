@@ -17,7 +17,7 @@ class Element(BaseModel):
     text: Any
 
 
-def generate_pdf_summary(pdf_path: str, outputdir) -> Any:
+def generate_pdf_summary(pdf_path: str, outputdir, openai_api_key: str) -> Any:
     """
     Generate a summary of the PDF at the given path.
     """
@@ -50,7 +50,7 @@ def generate_pdf_summary(pdf_path: str, outputdir) -> Any:
     # Prompt
 
     # Summary chain
-    model = ChatOpenAI(temperature=0, model="gpt-4")
+    model = ChatOpenAI(temperature=0, model="gpt-4", openai_api_key=openai_api_key)
     summarize_chain = {"element": lambda x: x} | pdf_prompt | model | StrOutputParser()
     # Apply to tables
     tables = [i.text for i in table_elements]

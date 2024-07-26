@@ -3,12 +3,20 @@ from typing import AsyncGenerator, Generator, Iterable, TypeVar, Union
 import asyncio
 from pathlib import Path
 
+class Paper:
+    
+    def __init__(self, paper_id: str, abstract: str, title: str, pdf_path: Path = None):
+        self.pdf_path = pdf_path
+        self.paper_id = paper_id
+        self.abstract = abstract
+        self.title = title
+
 class SemanticSearch:
     
-    def __init__(self, session, headers, limit=10):
-        self.headers = headers
+    def __init__(self, session, x_api_key, limit=10):
+        self.headers = {"X-API-KEY": x_api_key}
         self.limit = limit
-        self.params = {"fields": "paperId,title,isOpenAccess,openAccessPdf"}
+        self.params = {"fields": "paperId,title,isOpenAccess,openAccessPdf,abstract"}
         self.session = session
         
     async def get_papers(self, query: str) -> AsyncGenerator[dict, None]:
@@ -52,17 +60,18 @@ class SemanticSearch:
             
         async for paper in self.get_papers(query):
             print(paper)
-            paper_id = paper['paperId']
 
             # check if the paper is open access
             if not paper['isOpenAccess']:
-                yield paper_id, None
+                paper_obj = Paper(paper['paperId'], paper["abstract"], paper["title"])
+                yield paper_obj
 
             try:
-                paperId: str = paper['paperId']
                 pdf_url: str = paper['openAccessPdf']['url']
-                pdf_path = save_directory / f'{paperId}.pdf'
+                pdf_path = save_directory / f'{paper["paperId"]}.pdf'
+                paper_obj = Paper(paper['paperId'], paper["abstract"], paper["title"], pdf_path)
                 await self.download_pdf(pdf_url, pdf_path)
-                yield paper_id, pdf_path
+                yield paper_obj
             except Exception as e:
-                yield paper_id, e
+                paper_obj = Paper(paper['paperId'], paper["abstract"], paper["title"])
+                yield paper_obj
