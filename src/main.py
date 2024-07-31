@@ -6,6 +6,7 @@ from aiohttp import ClientSession
 from search import SemanticSearch
 import pandas as pd
 from articles_info_collector import ArticleInfo
+import utils
 
 class Config:
     def __init__(self, config_path):
@@ -38,6 +39,8 @@ def main():
     config = Config(args.config)
     
     result = asyncio.run(run_semantic_search(args, config))
+    
+    result = utils.make_hrefs_in_dataframe(result, ["saved_pdf", "tables_path"], ["github_links"])
     
     result.to_html("result.html")
                 
