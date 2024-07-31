@@ -2,13 +2,29 @@ import requests
 from typing import AsyncGenerator, Generator, Iterable, TypeVar, Union
 import asyncio
 from pathlib import Path
+from articles_info_collector import ArticleInfo
+import pandas as pd
+
+class Paper:
+    
+    def __init__(self, paperId,title,isOpenAccess,openAccessPdf,abstract,year,authors,doi,citationCount,url):
+        self.paperId = paperId
+        self.title = title
+        self.isOpenAccess = isOpenAccess
+        self.openAccessPdf = openAccessPdf
+        self.abstract = abstract
+        self.year = year
+        self.authors = authors
+        self.doi = doi
+        self.citationCount = citationCount
+        self.url = url
 
 class SemanticSearch:
     
-    def __init__(self, session, headers, limit=10):
-        self.headers = headers
+    def __init__(self, session, x_api_key, limit=10):
+        self.headers = {"X-API-KEY": x_api_key}
         self.limit = limit
-        self.params = {"fields": "paperId,title,isOpenAccess,openAccessPdf"}
+        self.params = {"fields": "paperId,title,isOpenAccess,openAccessPdf,abstract,year,authors,citationCount,url"}
         self.session = session
         
     async def get_papers(self, query: str) -> AsyncGenerator[dict, None]:
@@ -49,20 +65,37 @@ class SemanticSearch:
     async def search_and_download_papers(self, query: str, save_directory: Path):
         if not save_directory.exists():
             save_directory.mkdir(parents=True)
+        
+        result = []
             
         async for paper in self.get_papers(query):
             print(paper)
-            paper_id = paper['paperId']
+            
+            pdf_path = None
 
             # check if the paper is open access
-            if not paper['isOpenAccess']:
-                yield paper_id, None
+            if paper['isOpenAccess']:
+                # yield paper, None
 
-            try:
-                paperId: str = paper['paperId']
-                pdf_url: str = paper['openAccessPdf']['url']
-                pdf_path = save_directory / f'{paperId}.pdf'
-                await self.download_pdf(pdf_url, pdf_path)
-                yield paper_id, pdf_path
-            except Exception as e:
-                yield paper_id, e
+                try:
+                    pdf_url: str = paper['openAccessPdf']['url']
+                    pdf_dir = save_directory / f'{paper["paperId"]}'
+                    pdf_dir.mkdir(parents=True, exist_ok=True)
+                    pdf_path = (pdf_dir / f'{paper["paperId"]}.pdf').absolute()
+                    await self.download_pdf(pdf_url, pdf_path)
+                    # yield paper, pdf_path
+                except Exception as e:
+                    print(e)
+                    pdf_path = None
+                    # yield paper, None
+                
+            paper_info = ArticleInfo(paper.get("title", None), paper.get("authors", None), paper.get("journal", None), paper.get("year", None), paper.get("abstract", None), 
+                                    paper.get("citationCount", None), pdf_path)            
+            result.append(paper_info.__dict__)
+            
+        result = pd.DataFrame(result)
+        return result
+                
+                
+    
+    
