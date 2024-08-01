@@ -2,7 +2,7 @@ import re
 from pdf_element_extractor import Pdf
 from pathlib import Path
 
-github_regex = r"https?://(?:www\.)?github\.com/[\w-]+/[\w.-]+"
+github_regex = r"https?://(?:www\.)?github\.com/[\w-]+/[\w.-]+[\w-]"
 
 
 class ArticleInfo:
