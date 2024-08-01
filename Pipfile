@@ -4,9 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+aiohttp = "*"
+pdfplumber = "*"
+pypdf2 = "*"
+pandas = "*"
+arxiv = "*"
+jinja2 = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
-python_full_version = "3.10.14"

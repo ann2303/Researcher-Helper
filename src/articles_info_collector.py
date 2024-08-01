@@ -1,12 +1,15 @@
 import re
 from pdf_element_extractor import Pdf
+from pathlib import Path
 
-github_regex = r'https?://(?:www\.)?github\.com/[\w-]+/[\w.-]+'
+github_regex = r"https?://(?:www\.)?github\.com/[\w-]+/[\w.-]+"
 
 
 class ArticleInfo:
-    
-    def __init__(self, title, authors, journal, year, abstract, citationCount, saved_pdf=None):
+
+    def __init__(
+        self, title, authors, journal, year, abstract, citationCount, saved_pdf=None
+    ):
         self.title = title
         self.authors = authors
         self.journal = journal
@@ -15,12 +18,11 @@ class ArticleInfo:
         self.citationCount = citationCount
         self.saved_pdf = saved_pdf
         self.github_links = []
-        
+
         if self.saved_pdf is not None:
             self.tables_path = saved_pdf.parent / "tables.pdf"
             self.analyze_pdf(self.saved_pdf)
-        
-    
+
     def analyze_pdf(self, pdf_path):
         pdf = Pdf(pdf_path)
         text_from_pdf = pdf.extract_text_from_pdf()
@@ -28,9 +30,9 @@ class ArticleInfo:
         if matches is None:
             self.github_links = []
         else:
-            self.github_links = matches # [make_clickable(i) for i in matches]
+            self.github_links = matches 
         pdf.extract_and_crop_tables(self.tables_path)
-        # self.saved_pdf = make_clickable(str(self.saved_pdf))
-        # self.tables_path = make_clickable(str(self.tables_path))
-        pdf.close()
+        if not Path(self.tables_path).exists():
+            self.tables_path = None
         
+        pdf.close()
