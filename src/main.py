@@ -50,7 +50,7 @@ def main():
     parser.add_argument(
         "--config",
         type=Path,
-        help="Path to config with Semantic Scholar API and OpenAI API key.",
+        help="Path to config with Semantic Scholar API.",
         default=Path(__file__).parent / "config.json",
     )
     parser.add_argument(
