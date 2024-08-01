@@ -1,0 +1,71 @@
+<style type="text/css">
+#T_6ed99 th {
+  border: 1px solid black;
+  padding: 8px;
+}
+#T_6ed99  td {
+  border: 1px solid black;
+  padding: 8px;
+}
+#T_6ed99 table {
+  border-collapse: collapse;
+  width: 100%;
+}
+#T_6ed99 th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+#T_6ed99 tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+</style>
+<table id="T_6ed99">
+  <thead>
+    <tr>
+      <th id="T_6ed99_level0_col0" class="col_heading level0 col0" >title</th>
+      <th id="T_6ed99_level0_col1" class="col_heading level0 col1" >authors</th>
+      <th id="T_6ed99_level0_col2" class="col_heading level0 col2" >journal</th>
+      <th id="T_6ed99_level0_col3" class="col_heading level0 col3" >year</th>
+      <th id="T_6ed99_level0_col4" class="col_heading level0 col4" >abstract</th>
+      <th id="T_6ed99_level0_col5" class="col_heading level0 col5" >citationCount</th>
+      <th id="T_6ed99_level0_col6" class="col_heading level0 col6" >saved_pdf</th>
+      <th id="T_6ed99_level0_col7" class="col_heading level0 col7" >github_links</th>
+      <th id="T_6ed99_level0_col8" class="col_heading level0 col8" >tables_path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_6ed99_row7_col0" class="data row7 col0" >Unleashing the hidden power of compiler optimization on binary code difference: an empirical study</td>
+      <td id="T_6ed99_row7_col1" class="data row7 col1" >Xiaolei Ren, Michael Ho, Jiang Ming, Yu Lei, Li Li</td>
+      <td id="T_6ed99_row7_col2" class="data row7 col2" >Proceedings of the 42nd ACM SIGPLAN International Conference on Programming Language Design and Implementation</td>
+      <td id="T_6ed99_row7_col3" class="data row7 col3" >2021</td>
+      <td id="T_6ed99_row7_col4" class="data row7 col4" >Hunting binary code difference without source code (i.e., binary diffing) has compelling applications in software security. Due to the high variability of binary code, existing solutions have been driven towards measuring semantic similarities from syntactically different code. Since compiler optimization is the most common source contributing to binary code differences in syntax, testing the resilience against the changes caused by different compiler optimization settings has become a standard evaluation step for most binary diffing approaches. For example, 47 top-venue papers in the last 12 years compared different program versions compiled by default optimization levels (e.g., -Ox in GCC and LLVM). Although many of them claim they are immune to compiler transformations, it is yet unclear about their resistance to non-default optimization settings. Especially, we have observed that adversaries explored non-default compiler settings to amplify malware differences. This paper takes the first step to systematically studying the effectiveness of compiler optimization on binary code differences. We tailor search-based iterative compilation for the auto-tuning of binary code differences. We develop BinTuner to search near-optimal optimization sequences that can maximize the amount of binary code differences. We run BinTuner with GCC 10.2 and LLVM 11.0 on SPEC benchmarks (CPU2006 & CPU2017), Coreutils, and OpenSSL. Our experiments show that at the cost of 279 to 1,881 compilation iterations, BinTuner can find custom optimization sequences that are substantially better than the general -Ox settings. BinTuner's outputs seriously undermine prominent binary diffing tools' comparisons. In addition, the detection rate of the IoT malware variants tuned by BinTuner falls by more than 50%. Our findings paint a cautionary tale for security analysts that attackers have a new way to mutate malware code cost-effectively, and the research community needs to step back to reassess optimization-resistance evaluations.</td>
+      <td id="T_6ed99_row7_col5" class="data row7 col5" >39</td>
+      <td id="T_6ed99_row7_col6" class="data row7 col6" ></td>
+      <td id="T_6ed99_row7_col7" class="data row7 col7" ></td>
+      <td id="T_6ed99_row7_col8" class="data row7 col8" ></td>
+    </tr>
+    <tr>
+      <td id="T_6ed99_row8_col0" class="data row8 col0" >Asteria: Deep Learning-based AST-Encoding for Cross-platform Binary Code Similarity Detection</td>
+      <td id="T_6ed99_row8_col1" class="data row8 col1" >Shouguo Yang, Long Cheng, Yicheng Zeng, Zhe Lang, Hongsong Zhu, Zhiqiang Shi</td>
+      <td id="T_6ed99_row8_col2" class="data row8 col2" >2021 51st Annual IEEE/IFIP International Conference on Dependable Systems and Networks (DSN)</td>
+      <td id="T_6ed99_row8_col3" class="data row8 col3" >2021</td>
+      <td id="T_6ed99_row8_col4" class="data row8 col4" >Binary code similarity detection is a fundamental technique for many security applications such as vulnerability search, patch analysis, and malware detection. There is an increasing need to detect similar code for vulnerability search across architectures with the increase of critical vulnerabilities in IoT devices. The variety of IoT hardware architectures and software platforms requires to capture semantic equivalence of code fragments in the similarity detection. However, existing approaches are insufficient in capturing the semantic similarity. We notice that the abstract syntax tree (AST) of a function contains rich semantic information. Inspired by successful applications of natural language processing technologies in sentence semantic understanding, we propose a deep learning-based AST-encoding method, named ASTERIA, to measure the semantic equivalence of functions in different platforms. Our method leverages the Tree-LSTM network to learn the semantic representation of a function from its AST. Then the similarity detection can be conducted efficiently and accurately by measuring the similarity between two representation vectors. We have implemented an open-source prototype of ASTERIA. The Tree-LSTM model is trained on a dataset with 1,022,616 function pairs and evaluated on a dataset with 95,078 function pairs. Evaluation results show that our method outperforms the AST-based tool Diaphora and the-state-of-art method Gemini by large margins with respect to the binary similarity detection. And our method is several orders of magnitude faster than Diaphora and Gemini for the similarity calculation. In the application of vulnerability search, our tool successfully identified 75 vulnerable functions in 5,979 IoT firmware images.</td>
+      <td id="T_6ed99_row8_col5" class="data row8 col5" >41</td>
+      <td id="T_6ed99_row8_col6" class="data row8 col6" ><a href=path_on_your_machine>path_on_your_machine</td>
+      <td id="T_6ed99_row8_col7" class="data row8 col7" ><a href=https://github.com/Asteria-BCSD/Asteria>https://github.com/Asteria-BCSD/Asteria</a><br><br><a href=https://github.com/joxeankoret/diaphora.>https://github.com/joxeankoret/diaphora.</a></td>
+      <td id="T_6ed99_row8_col8" class="data row8 col8" ><a href=path_on_your_machine>path_on_your_machine</td>
+    </tr>
+    <tr>
+      <td id="T_6ed99_row9_col0" class="data row9 col0" >Neural Network-based Graph Embedding for Cross-Platform Binary Code Similarity Detection</td>
+      <td id="T_6ed99_row9_col1" class="data row9 col1" >Xiaojun Xu, Chang Liu, Qian Feng, Heng Yin, Le Song, D. Song</td>
+      <td id="T_6ed99_row9_col2" class="data row9 col2" >Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security</td>
+      <td id="T_6ed99_row9_col3" class="data row9 col3" >2017</td>
+      <td id="T_6ed99_row9_col4" class="data row9 col4" >The problem of cross-platform binary code similarity detection aims at detecting whether two binary functions coming from different platforms are similar or not. It has many security applications, including plagiarism detection, malware detection, vulnerability search, etc. Existing approaches rely on approximate graph-matching algorithms, which are inevitably slow and sometimes inaccurate, and hard to adapt to a new task. To address these issues, in this work, we propose a novel neural network-based approach to compute the embedding, i.e., a numeric vector, based on the control flow graph of each binary function, then the similarity detection can be done efficiently by measuring the distance between the embeddings for two functions. We implement a prototype called Gemini. Our extensive evaluation shows that Gemini outperforms the state-of-the-art approaches by large margins with respect to similarity detection accuracy. Further, Gemini can speed up prior art's embedding generation time by 3 to 4 orders of magnitude and reduce the required training time from more than 1 week down to 30 minutes to 10 hours. Our real world case studies demonstrate that Gemini can identify significantly more vulnerable firmware images than the state-of-the-art, i.e., Genius. Our research showcases a successful application of deep learning on computer security problems.</td>
+      <td id="T_6ed99_row9_col5" class="data row9 col5" >523</td>
+      <td id="T_6ed99_row9_col6" class="data row9 col6" ><a href=path_on_your_machine>path_on_your_machine</td>
+      <td id="T_6ed99_row9_col7" class="data row9 col7" ><a href=https://github.com/xiaojunxu/dnn-binary-code-similarity.>https://github.com/xiaojunxu/dnn-binary-code-similarity.</a></td>
+      <td id="T_6ed99_row9_col8" class="data row9 col8" ><a href=path_on_your_machine>path_on_your_machine</td>
+    </tr>
+  </tbody>
+</table>
