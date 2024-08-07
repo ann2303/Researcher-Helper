@@ -44,10 +44,13 @@ class SemanticSearch:
 
     async def get_papers(self, query: str) -> AsyncGenerator[dict, None]:
         data = {"query": query, "limit": self.limit}
+        
+        session_params = self.params.copy()
+        session_params.update(data)
 
         async with self.session.get(
             f"https://api.semanticscholar.org/graph/v1/paper/search",
-            params=self.params | data,
+            params=session_params,
             headers=self.headers,
         ) as response:
             response.raise_for_status()

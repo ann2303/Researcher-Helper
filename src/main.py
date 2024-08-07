@@ -40,21 +40,21 @@ def main():
     parser = argparse.ArgumentParser(
         description="Download open access PDFs from Semantic Scholar."
     )
-    parser.add_argument("--query", type=str, help="Query to search for papers.")
+    parser.add_argument("--query", "-q", type=str, help="Query to search for papers.")
     parser.add_argument(
-        "--save_directory", type=Path, help="Directory to save PDFs to."
+        "--save_directory", "-s", type=Path, help="Directory to save PDFs to."
     )
     parser.add_argument(
-        "--limit", type=int, default=10, help="Number of papers to download."
+        "--limit", "-l", type=int, default=10, help="Number of papers to download."
     )
     parser.add_argument(
-        "--config",
+        "--config", "-c",
         type=Path,
         help="Path to config with Semantic Scholar API.",
         default=Path(__file__).parent / "config.json",
     )
     parser.add_argument(
-        "--database",
+        "--database", "-d",
         choices=["arxiv", "semantic_scholar"],
         default="arxiv",
         help="Database to use for searching",
