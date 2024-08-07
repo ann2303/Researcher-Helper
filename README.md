@@ -4,12 +4,16 @@
 
 
 
-# Install
+## Install
 
 ```
 pipenv shell
 pipenv install
 ```
+
+## Requirements
+
+python >= 3.10
 
 
 ## Usage
