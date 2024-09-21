@@ -21,6 +21,8 @@ class ArticleInfo:
 
         if self.saved_pdf is not None:
             self.tables_path = saved_pdf.parent / "tables.pdf"
+            self.images_path = saved_pdf.parent / "images"
+            self.images_path.mkdir(exist_ok=True)
             self.analyze_pdf(self.saved_pdf)
 
     def analyze_pdf(self, pdf_path):
@@ -31,6 +33,7 @@ class ArticleInfo:
             self.github_links = []
         else:
             self.github_links = matches 
+        pdf.extract_and_save_images(self.images_path)
         pdf.extract_and_crop_tables(self.tables_path)
         if not Path(self.tables_path).exists():
             self.tables_path = None

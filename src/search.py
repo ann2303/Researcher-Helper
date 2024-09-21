@@ -106,7 +106,7 @@ class SemanticSearch:
             paper["authors"] = ", ".join(
                 [author["name"] for author in paper.get("authors", [])]
             )
-            paper["journal"] = paper["journal"].get("name", None)
+            paper["journal"] = paper["journal"].get("name", None) if "journal" in paper and paper["journal"] else None
             paper_info = ArticleInfo(
                 paper.get("title", None),
                 paper.get("authors", None),

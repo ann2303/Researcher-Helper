@@ -1,10 +1,14 @@
 import pdfplumber
 import PyPDF2
+import fitz
+from pathlib import Path
+
 
 
 class Pdf:
     def __init__(self, input_pdf):
         self.pdf_opened = pdfplumber.open(input_pdf)
+        self.pdf_for_img = fitz.Document(input_pdf)
 
     def extract_text_from_pdf(self):
         text = ""
@@ -17,6 +21,18 @@ class Pdf:
         pageObj.mediabox.lower_left = (image_left, image_bottom)
         pageObj.mediabox.upper_right = (image_right, image_top)
         return pageObj
+    
+    def extract_and_save_images(self, output_dir):
+        output_dir = Path(output_dir)
+        for i in range(len(self.pdf_for_img)):
+            cnt = 0
+            for img in self.pdf_for_img.get_page_images(i):
+                xref = img[0]
+                image = self.pdf_for_img.extract_image(xref)
+                pix = fitz.Pixmap(self.pdf_for_img, xref)
+                file_name = "img_%s_%s.png" % (i, cnt)
+                pix.save(output_dir / file_name)
+                cnt += 1
 
     def extract_and_crop_tables(self, output_pdf):
         pdfFileObj = open(self.pdf_opened.stream.name, "rb")
