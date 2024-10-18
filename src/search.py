@@ -103,20 +103,24 @@ class SemanticSearch:
                 except Exception as e:
                     print(e)
                     pdf_path = None
-            paper["authors"] = ", ".join(
-                [author["name"] for author in paper.get("authors", [])]
-            )
-            paper["journal"] = paper["journal"].get("name", None) if "journal" in paper and paper["journal"] else None
-            paper_info = ArticleInfo(
-                paper.get("title", None),
-                paper.get("authors", None),
-                paper.get("journal", None),
-                paper.get("year", None),
-                paper.get("abstract", None),
-                paper.get("citationCount", None),
-                pdf_path,
-            )
-            result.append(paper_info.__dict__)
+            try:
+                paper["authors"] = ", ".join(
+                    [author["name"] for author in paper.get("authors", [])]
+                )
+                paper["journal"] = paper["journal"].get("name", None) if "journal" in paper and paper["journal"] else None
+                paper_info = ArticleInfo(
+                    paper.get("title", None),
+                    paper.get("authors", None),
+                    paper.get("journal", None),
+                    paper.get("year", None),
+                    paper.get("abstract", None),
+                    paper.get("citationCount", None),
+                    pdf_path,
+                )
+                result.append(paper_info.__dict__)
+            except Exception as e:
+                    print("Can't append paper", e)
+                    continue
 
         result = pd.DataFrame(result)
         return result
@@ -177,16 +181,20 @@ class ArxivSearch:
                 print(e)
                 pdf_path = None
 
-            paper_info = ArticleInfo(
-                paper.get("title", None),
-                paper.get("authors", None),
-                paper.get("journal", ""),
-                paper.get("year", None),
-                paper.get("abstract", None),
-                paper.get("citationCount", None),
-                pdf_path,
-            )
-            result.append(paper_info.__dict__)
+            try:
+                paper_info = ArticleInfo(
+                    paper.get("title", None),
+                    paper.get("authors", None),
+                    paper.get("journal", ""),
+                    paper.get("year", None),
+                    paper.get("abstract", None),
+                    paper.get("citationCount", None),
+                    pdf_path,
+                )
+                result.append(paper_info.__dict__)
+            except Exception as e:
+                print("Can't append paper", e)
+                continue
 
         result = pd.DataFrame(result).drop(columns=["citationCount"])
         return result
